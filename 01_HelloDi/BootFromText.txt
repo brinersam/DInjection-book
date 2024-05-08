@@ -1,0 +1,4 @@
+HelloDi.Printer
+
+only first line is read btw dont forget lol
+HelloDi.PrinterWithAuth
