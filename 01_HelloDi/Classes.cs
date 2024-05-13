@@ -4,8 +4,7 @@ namespace HelloDi
     {
         IPrints _printer;
         User _user;
-        int _passwordGoal = 123;
-        int _passwordLast;
+        
         public PrinterWithAuth(IPrints printer, User usr)
         {
             _printer = printer;
