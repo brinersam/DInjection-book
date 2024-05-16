@@ -1,28 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Data;
 using Mono.Data.Sqlite;
-using System.IO;
 
-public class CommerceDBContext : MonoBehaviour
+namespace Mary.Data
 {
-    void Start()
-    {
-        string DBPATH = $"Data Source=D:{Application.streamingAssetsPath}/DB.bytes;Version=3";
-        CreateSchema(DBPATH);
-    }
+public class CommerceDBContext
+{
+    private string _dbPath = $"Data Source=D:{Application.streamingAssetsPath}/DB.bytes;Version=3"; // pretend we load it from a config
 
-    private void CreateSchema(string path)
+    public IList<Product> DB_Read(string query = "SELECT * FROM Products")
     {
         List<Product> result = new();
-        using (var conn = new SqliteConnection(path))
+        using (var conn = new SqliteConnection(_dbPath))
         {
             conn.Open();
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT * FROM Products";
+                cmd.CommandText = query;
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -36,9 +32,7 @@ public class CommerceDBContext : MonoBehaviour
                 }
             }
         }
-        foreach(var i in result)
-        {
-            Debug.Log(i);
-        }
+        return result;
     }
+}
 }
