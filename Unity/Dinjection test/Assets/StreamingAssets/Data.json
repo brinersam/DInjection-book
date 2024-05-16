@@ -1,0 +1,60 @@
+{
+    "_products": [
+        {
+            "id": 2,
+            "name": "Aqua",
+            "description": "Walter",
+            "unitPrice": 5.0,
+            "isFeatured": false
+        },
+        {
+            "id": 3,
+            "name": "Fanta",
+            "description": "Walter but orange",
+            "unitPrice": 15.0,
+            "isFeatured": true
+        },
+        {
+            "id": 4,
+            "name": "Criollo Chocolate",
+            "description": "yum",
+            "unitPrice": 34.95,
+            "isFeatured": true
+        },
+        {
+            "id": 5,
+            "name": "Arborio Rice",
+            "description": "rice",
+            "unitPrice": 22.75,
+            "isFeatured": true
+        },
+        {
+            "id": 6,
+            "name": "White Asparagus",
+            "description": "vegetable",
+            "unitPrice": 39.8,
+            "isFeatured": true
+        },
+        {
+            "id": 7,
+            "name": "Maldon Sea Salt",
+            "description": "big salt crystals, use as garnish",
+            "unitPrice": 19.5,
+            "isFeatured": false
+        },
+        {
+            "id": 8,
+            "name": "Gruyère",
+            "description": "i do not know",
+            "unitPrice": 48.5,
+            "isFeatured": true
+        },
+        {
+            "id": 9,
+            "name": "Anchovies",
+            "description": "on pizza not as terrible as one might think",
+            "unitPrice": 18.75,
+            "isFeatured": true
+        }
+    ]
+}

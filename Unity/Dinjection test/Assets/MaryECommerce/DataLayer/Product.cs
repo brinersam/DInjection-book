@@ -18,6 +18,11 @@ public struct Product
         UnitPrice = unitPrice;
         IsFeatured = isFeatured != 0;
     }
+
+    public readonly ProductSerializable Serialize()
+    {
+        return new ProductSerializable(this);
+    }
     public override readonly string ToString()
     {
         return $"Id {Id}\nName:{Name}\nDescription:{Description}\nUnitPrice:{UnitPrice}\nIsFeatured:{IsFeatured}\n";

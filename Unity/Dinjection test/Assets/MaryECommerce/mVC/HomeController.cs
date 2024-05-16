@@ -2,24 +2,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mary.Data;
 using Mary.Domain;
+using System.IO;
+using System.Linq;
 
 namespace Mary.MVC
 {
 public class HomeController : MonoBehaviour
 {
     [SerializeField] GameObject _productListingPrefab;
-    private bool _isAfterStart = false;
+    private bool _earlyCall = true;
 
     void Start()
     {
         RenderPage();
-        _isAfterStart = true;
+        _earlyCall = false;
     }
 
     void OnEnable()
     {
-        if (!_isAfterStart)
-            return;
+        if (_earlyCall) { return; }
         
         RenderPage();
     }
@@ -30,7 +31,7 @@ public class HomeController : MonoBehaviour
             Destroy(child.gameObject);
     }
 
-    public void RenderPage()
+    private void RenderPage()
     {
         foreach (Product i in Index())
         {
@@ -39,7 +40,7 @@ public class HomeController : MonoBehaviour
         }
     }
 
-    public IEnumerable<Product> Index()
+    private IEnumerable<Product> Index()
     {
         bool isCustomerPreferred = UserData.I.IsInRole(UserRole.PreferredCustomer);
         var service = new ProductService();
