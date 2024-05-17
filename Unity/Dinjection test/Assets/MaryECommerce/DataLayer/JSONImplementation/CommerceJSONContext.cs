@@ -16,19 +16,18 @@ public class CommerceJSONContext
         string json = File.ReadAllText(path);
         ProductsSerializable read = JsonUtility.FromJson<ProductsSerializable>(json);
 
-        foreach(Product i in read)
+        if (predicate is null)
         {
-            if (predicate is null)
-            {
+            foreach(Product i in read)
                 result.Add(i);
-            }
-            else
-            {
+        }
+        else
+        {
+            foreach(Product i in read)
                 if (predicate(i))
                     result.Add(i);
-            }
         }
-
+        
         return result;
     }
 }

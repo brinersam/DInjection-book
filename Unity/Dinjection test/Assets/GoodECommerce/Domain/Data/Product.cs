@@ -1,4 +1,4 @@
-namespace Mary.Data
+namespace ECom.Domain
 {
     public struct Product
     {
@@ -17,11 +17,6 @@ namespace Mary.Data
             Description = desc;
             UnitPrice = unitPrice;
             IsFeatured = isFeatured != 0;
-        }
-
-        public readonly ProductSerializable Serialize()
-        {
-            return new ProductSerializable(this);
         }
         public override readonly string ToString()
         {

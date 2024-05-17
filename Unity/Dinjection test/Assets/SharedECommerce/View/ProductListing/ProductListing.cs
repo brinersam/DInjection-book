@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Mary.MVC
+namespace EComShared.View
 {
 public class ProductListing : MonoBehaviour
 {

@@ -17,7 +17,7 @@ namespace Mary.Domain
         {
             decimal discount = isCustomerPreferred ? 0.95m : 1;
             
-            foreach (var i in _jcontext.JSON_Read(x => !x.IsFeatured))
+            foreach (var i in _jcontext.JSON_Read(x => x.IsFeatured))
             {
                 yield return i.ApplyDiscount(discount);
             }

@@ -1,4 +1,6 @@
-namespace Mary.Data
+using ECom.Domain;
+
+namespace ECom.Data
 {
     [System.Serializable]
     public struct ProductSerializable
@@ -15,6 +17,16 @@ namespace Mary.Data
             description = product.Description;
             unitPrice = (double)product.UnitPrice;
             isFeatured = product.IsFeatured;
+        }
+
+        public static implicit operator Product(ProductSerializable prod)
+        {
+            return new Product(
+                prod.id,
+                prod.name,
+                prod.description,
+                (decimal)prod.unitPrice,
+                prod.isFeatured);
         }
     }
 }
