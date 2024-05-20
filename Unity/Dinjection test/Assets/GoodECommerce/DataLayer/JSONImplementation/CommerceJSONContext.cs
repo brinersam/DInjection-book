@@ -7,7 +7,7 @@ using ECom.Domain; // this is ok
 
 namespace ECom.Data
 {
-    public class CommerceJSONContext : IDataContext
+    public class CommerceJSONContext : IProductRepository
     {
         string path = $"{Application.streamingAssetsPath}/Data.json";
 
@@ -23,7 +23,7 @@ namespace ECom.Data
             _JSONPath = path;
         }
 
-        public IEnumerable<Product> GetProducts(Func<Product, bool> predicate = null)
+        public IEnumerable<Product> GetFeaturedProducts() // Func<Product, bool> predicate = null
         {
             List<Product> result = new();
 
@@ -32,33 +32,12 @@ namespace ECom.Data
 
             foreach (Product product in read)
             {
-                if (predicate == null || predicate(product))
+                //if (predicate == null || predicate(product))
+                if (product.IsFeatured)
                     result.Add(product);
             }
             
             return result;
         }
-
-        // public IList<Product> JSON_Read(Func<Product,bool> predicate = null)
-        // {
-        //     List<Product> result = new();
-
-        //     string json = File.ReadAllText(path);
-        //     ProductsSerializable read = JsonUtility.FromJson<ProductsSerializable>(json);
-
-        //     if (predicate is null)
-        //     {
-        //         foreach(Product i in read)
-        //             result.Add(i);
-        //     }
-        //     else
-        //     {
-        //         foreach(Product i in read)
-        //             if (predicate(i))
-        //                 result.Add(i);
-        //     }
-            
-        //     return result;
-        // }
     }
 }

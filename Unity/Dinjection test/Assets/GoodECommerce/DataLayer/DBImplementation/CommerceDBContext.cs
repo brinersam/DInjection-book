@@ -8,57 +8,32 @@ using ECom.Domain; // this is ok
 
 namespace ECom.Data
 {
-public class CommerceDBContext : IDataContext
+public class CommerceDBContext : IProductRepository
 {
-    //private string _dbPath = $"Data Source=D:{Application.streamingAssetsPath}/DB.bytes;Version=3";
-    private string _dbPath;
+        //private string _dbPath = $"Data Source=D:{Application.streamingAssetsPath}/DB.bytes;Version=3";
+        private string _dbPath;
 
-    public CommerceDBContext(string path)
-    {
-        if (path == null)
+        public CommerceDBContext(string path)
         {
-            Console.WriteLine("No path specified for CommerceDBContext! Using defaults..");
-            path = $"Data Source=D:{Application.streamingAssetsPath}/DB.bytes;Version=3";
+            if (path == null)
+            {
+                Console.WriteLine("No path specified for CommerceDBContext! Using defaults..");
+                path = $"Data Source=D:{Application.streamingAssetsPath}/DB.bytes;Version=3";
+            }
+            _dbPath = path;
         }
-        _dbPath = path;
-    }
 
-    // public IList<Product> DB_Read(string query = "SELECT * FROM Products")
-    // {
-    //     List<Product> result = new();
-    //     using (var conn = new SqliteConnection(_dbPath))
-    //     {
-    //         conn.Open();
-    //         using (var cmd = conn.CreateCommand())
-    //         {
-    //             cmd.CommandType = CommandType.Text;
-    //             cmd.CommandText = query;
-
-    //             var reader = cmd.ExecuteReader();
-    //             while (reader.Read())
-    //             {
-    //                result.Add(new Product (
-    //                         reader.GetInt32(0),
-    //                         reader.GetString(1),
-    //                         reader.GetString(2),
-    //                         reader.GetDecimal(3),
-    //                         reader.GetInt32(4)));
-    //             }
-    //         }
-    //     }
-    //     return result;
-    // }
-
-        public IEnumerable<Product> GetProducts(Func<Product, bool> predicate = null)
+        public IEnumerable<Product> GetFeaturedProducts() //Func<Product, bool> predicate = null
         {
             List<Product> result = new();
+
             using (var conn = new SqliteConnection(_dbPath))
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "SELECT * FROM Products";
+                    cmd.CommandText = "SELECT * FROM Products WHERE (IsFeatured = 1)"; // todo may be incorrect sql
 
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -70,7 +45,7 @@ public class CommerceDBContext : IDataContext
                                     reader.GetDecimal(3),
                                     reader.GetInt32(4));
 
-                        if (predicate == null || predicate(product))
+                        //if (predicate == null || predicate(product))
                             result.Add(product);
                     }
                 }

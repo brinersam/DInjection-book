@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace ECom.Domain
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private decimal _discountMod;
-        private readonly IDataContext _context;
-        private UserInfo _user;
-        public ProductService(IDataContext context, UserInfo user, decimal discountMod) 
+        private readonly IProductRepository _context;
+        private IUserContext _user;
+        public ProductService(IProductRepository context, IUserContext user, decimal discountMod) 
         {
             _context = context;
             _discountMod = discountMod;
@@ -18,9 +18,9 @@ namespace ECom.Domain
 
         public IEnumerable<Product> GetFeaturedProducts()
         {
-            decimal discount = _user.IsPreferred ? _discountMod : 1;
+            decimal discount = _user.IsInRole(UserRole.PreferredCustomer) ? _discountMod : 1;
 
-            foreach (var i in _context.GetProducts(x => x.IsFeatured))
+            foreach (var i in _context.GetFeaturedProducts()) //x => x.IsFeatured
             {
                 yield return i.ApplyDiscount(discount);
             }
@@ -35,5 +35,4 @@ namespace ECom.Domain
             return prdct;
         }
     }
-
 }

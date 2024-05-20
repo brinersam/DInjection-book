@@ -2,11 +2,11 @@ namespace ECom.Domain
 {
     public struct Product
     {
-        public int Id {get; private set;}
-        public string Name {get; private set;}
-        public string Description {get; private set;}
+        public int Id {get; set;}
+        public string Name {get; set;}
+        public string Description {get; set;}
         public decimal UnitPrice {get; set;}
-        public bool IsFeatured {get; private set;}
+        public bool IsFeatured {get; set;}
 
         public Product(string name, string desc, decimal unitPrice, bool isFeatured) : this(-1,name,desc,unitPrice,isFeatured == false? 0 : 1) {}
         public Product(int id, string name, string desc, decimal unitPrice, bool isFeatured) : this(id,name,desc,unitPrice,isFeatured == false? 0 : 1) {}

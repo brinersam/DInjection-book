@@ -1,15 +1,22 @@
-using System;
 using System.Collections.Generic;
 
 namespace ECom.Domain
 {
-    public interface IDataContext
+    public interface IProductRepository
     {
-        public IEnumerable<Product> GetProducts(Func<Product,bool> predicate = null);
+        public IEnumerable<Product> GetFeaturedProducts();
     }
 
-    public interface IViewAdapter<T>
+    public interface IProductService
     {
-        public IEnumerable<T> ViewAdapter(IEnumerable<Product> products);
+        public IEnumerable<Product> GetFeaturedProducts();
     }
+
+    // public interface IDataContext
+    // {
+    //     // book diverts: says its best to use repository pattern aka just get the data, and filtering
+    //     //      and such should be in domain, but wont that ignore sql optimizations in favor 
+    //     //      of whatever implementation happens instead?
+    //     public IEnumerable<Product> GetProducts(Func<Product,bool> predicate = null);
+    // }
 }

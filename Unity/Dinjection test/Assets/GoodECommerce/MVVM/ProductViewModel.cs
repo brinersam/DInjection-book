@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace ECom.MVVM
@@ -14,6 +13,4 @@ namespace ECom.MVVM
             SummaryText = string.Format(_priceCulture, "{0} ({1:C})", name,unitPrice);
         }
     }
-
-
 }
