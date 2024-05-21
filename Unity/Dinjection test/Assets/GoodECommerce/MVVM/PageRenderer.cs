@@ -1,8 +1,11 @@
 using UnityEngine;
 using EComShared.View;
+using System.Globalization;
 
 using ECom.Data;
 using ECom.Domain;
+using ECom.Module.CurrencyConverter;
+using ECom.Module.CurrencyConverterAPI;
 
 namespace ECom.MVVM
 {
@@ -44,14 +47,24 @@ namespace ECom.MVVM
 
         private HomeController NewCompositionRoot()
         {
+            RegionInfo homeRegion = new RegionInfo("en-US");
+            RegionInfo userRegion = new RegionInfo("en-US"); // get it from user data todo
+
             return new HomeController
                     (
                         new ProductService
                         (
-                            new CommerceJSONContext(null),
+                            new CommerceDBContext(null),
                             new UserContextAdapter(),
-                            0.50m
-                        )
+                            discountMod: 0.50m,
+                            new CurrencyConverter
+                            (
+                                homeRegion,
+                                new FreeCurrencyAPI()
+                            ),
+                            userRegion // userRegion
+                        ),
+                        new CultureInfo("en-US") // also userRegion, fuck
                     );
         }
     }

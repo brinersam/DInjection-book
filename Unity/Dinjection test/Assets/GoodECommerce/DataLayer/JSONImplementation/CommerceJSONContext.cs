@@ -25,7 +25,7 @@ namespace ECom.Data
 
         public IEnumerable<Product> GetFeaturedProducts() // Func<Product, bool> predicate = null
         {
-            List<Product> result = new();
+            //List<Product> result = new();
 
             string json = File.ReadAllText(_JSONPath);
             ProductsSerializable read = JsonUtility.FromJson<ProductsSerializable>(json);
@@ -34,10 +34,11 @@ namespace ECom.Data
             {
                 //if (predicate == null || predicate(product))
                 if (product.IsFeatured)
-                    result.Add(product);
+                    yield return product;
+                    //result.Add(product);
             }
             
-            return result;
+            //return result;
         }
     }
 }

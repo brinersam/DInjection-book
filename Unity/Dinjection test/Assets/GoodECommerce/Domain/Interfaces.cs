@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ECom.Domain
 {
@@ -10,6 +11,12 @@ namespace ECom.Domain
     public interface IProductService
     {
         public IEnumerable<Product> GetFeaturedProducts();
+    }
+
+    public interface ICurrencyConverter
+    {
+        public decimal Convert(decimal moneys, string goalCurrency);
+        //public RegionInfo CurrentRegion
     }
 
     // public interface IDataContext

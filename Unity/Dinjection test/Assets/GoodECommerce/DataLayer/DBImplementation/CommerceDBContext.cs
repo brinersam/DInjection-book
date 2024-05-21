@@ -25,7 +25,7 @@ public class CommerceDBContext : IProductRepository
 
         public IEnumerable<Product> GetFeaturedProducts() //Func<Product, bool> predicate = null
         {
-            List<Product> result = new();
+            // List<Product> result = new();
 
             using (var conn = new SqliteConnection(_dbPath))
             {
@@ -33,7 +33,7 @@ public class CommerceDBContext : IProductRepository
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "SELECT * FROM Products WHERE (IsFeatured = 1)"; // todo may be incorrect sql
+                    cmd.CommandText = "SELECT * FROM Products WHERE (IsFeatured = 1)";
 
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -46,11 +46,12 @@ public class CommerceDBContext : IProductRepository
                                     reader.GetInt32(4));
 
                         //if (predicate == null || predicate(product))
-                            result.Add(product);
+                        yield return product;
+                            //result.Add(product);
                     }
                 }
             }
-            return result;
+            //return result;
         }
     }
 }
