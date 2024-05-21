@@ -47,24 +47,23 @@ namespace ECom.MVVM
 
         private HomeController NewCompositionRoot()
         {
-            RegionInfo homeRegion = new RegionInfo("en-US");
-            RegionInfo userRegion = new RegionInfo("en-US"); // get it from user data todo
+            string homeCultureString = "en-US";
+            IUserContext userContext = new UserContextAdapter();
 
             return new HomeController
                     (
                         new ProductService
                         (
                             new CommerceDBContext(null),
-                            new UserContextAdapter(),
+                            userContext,
                             discountMod: 0.50m,
                             new CurrencyConverter
                             (
-                                homeRegion,
+                                new RegionInfo(homeCultureString),
                                 new FreeCurrencyAPI()
-                            ),
-                            userRegion // userRegion
+                            )
                         ),
-                        new CultureInfo("en-US") // also userRegion, fuck
+                        userContext.CultureInfo
                     );
         }
     }

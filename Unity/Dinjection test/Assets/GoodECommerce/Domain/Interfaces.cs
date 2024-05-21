@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace ECom.Domain
 {
@@ -15,8 +14,7 @@ namespace ECom.Domain
 
     public interface ICurrencyConverter
     {
-        public decimal Convert(decimal moneys, string goalCurrency);
-        //public RegionInfo CurrentRegion
+        public decimal GetExchangeRate(string goalCurrency);
     }
 
     // public interface IDataContext

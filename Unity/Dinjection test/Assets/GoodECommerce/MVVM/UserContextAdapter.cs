@@ -1,3 +1,4 @@
+using System.Globalization;
 using ECom.Domain;
 using EComShared.View;
 
@@ -5,7 +6,8 @@ namespace ECom.MVVM
 {
     public class UserContextAdapter : IUserContext
     {
-        private UserData _userData;
+        private readonly UserData _userData;
+        public CultureInfo CultureInfo => _userData.Culture;
 
         public UserContextAdapter()
         {

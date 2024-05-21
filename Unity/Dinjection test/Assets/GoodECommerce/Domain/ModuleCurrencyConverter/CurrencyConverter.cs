@@ -14,9 +14,9 @@ namespace ECom.Module.CurrencyConverter
             _api = api;
         }
 
-        public decimal Convert(decimal moneys, string goalCurrency)
+        public decimal GetExchangeRate(string goalCurrencyISO)
         {
-            return _api.Request(moneys, _baseRegion.ISOCurrencySymbol, goalCurrency);
+            return _api.Request(_baseRegion.ISOCurrencySymbol, goalCurrencyISO);
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace ECom.Domain
 {
     public enum UserRole
@@ -9,5 +11,6 @@ namespace ECom.Domain
     public interface IUserContext
     {
         public bool IsInRole(UserRole role);
+        public CultureInfo CultureInfo {get;}
     }
 }

@@ -11,29 +11,27 @@ namespace ECom.Domain
         private readonly IProductRepository _context;
         private readonly IUserContext _user;
         private readonly ICurrencyConverter _converter;
-        private readonly RegionInfo _region;
 
         public ProductService(
                 IProductRepository context,
                 IUserContext user,
                 decimal discountMod,
-                ICurrencyConverter converter,
-                RegionInfo region) 
+                ICurrencyConverter converter) 
         {
             _context = context;
             _discountMod = discountMod;
             _user = user;
             _converter = converter;
-            _region = region;
         }
 
         public IEnumerable<Product> GetFeaturedProducts()
         {
             decimal discount = _user.IsInRole(UserRole.PreferredCustomer) ? _discountMod : 1;
+            decimal exchangeRate = _converter.GetExchangeRate(new RegionInfo(_user.CultureInfo.LCID).ISOCurrencySymbol);
 
             foreach (var i in _context.GetFeaturedProducts())
             {
-                yield return i.ApplyDiscount(discount).ConvertCurrency(_region, _converter);
+                yield return i.ApplyDiscount(discount).ConvertCurrency(exchangeRate);
             }
         }
     }
@@ -45,9 +43,9 @@ namespace ECom.Domain
             prdct.UnitPrice *= discount;
             return prdct;
         }
-        public static Product ConvertCurrency(this Product prdct, RegionInfo targetCurrency, ICurrencyConverter converter)
+        public static Product ConvertCurrency(this Product prdct, decimal exchangeRate)
         {
-            prdct.UnitPrice = converter.Convert(prdct.UnitPrice, targetCurrency.ISOCurrencySymbol);
+            prdct.UnitPrice *= exchangeRate;
             return prdct;
         }
     }
